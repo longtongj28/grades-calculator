@@ -6,9 +6,9 @@ import {
   Route,
   Switch,
   Link,
-  Redirect,
+  Redirect
 } from "react-router-dom";
-import GradePage from "./pages/gradesPage";
+import GradesPage from "./pages/gradesPage";
 
 class App extends Component {
   state = {
@@ -23,6 +23,12 @@ class App extends Component {
     });
   };
 
+  officialUsername = (username) => {
+    this.setState({
+      username: username,
+    });
+  };
+
   onChangePassword = (e) => {
     this.setState({
       password: e.target.value,
@@ -31,7 +37,6 @@ class App extends Component {
 
   handleLoginSuccess = (success) => {
     this.setState({ loginSuccess: success });
-    console.log(this.state.loginSuccess);
   };
 
   render() {
@@ -42,10 +47,11 @@ class App extends Component {
             <Route
               path="/"
               exact
-              render={ () => (
+              render={() => (
                 <Homepage
                   username={this.state.username}
                   onChangeUsername={this.onChangeUsername}
+                  officialUsername={this.officialUsername}
                   password={this.state.password}
                   onChangePassword={this.onChangePassword}
                   loginSuccess={this.state.loginSuccess}
@@ -53,7 +59,11 @@ class App extends Component {
                 />
               )}
             />
-            <Route path="/grades" exact component={GradePage} />
+            <Route
+              path="/grades"
+              exact
+              render={() => <GradesPage username={this.state.username} />}
+            />
           </Switch>
         </Router>
       </div>

@@ -3,28 +3,6 @@ import "./intro.css";
 import ButtonModal from "./buttonModal";
 
 class Intro extends Component {
-  // state = {
-  //   username: this.props.username,
-  //   password: this.props.username,
-  //   loginSuccess: this.props.loginSuccess,
-  // };
-
-  // onChangeUsername = (e) => {
-  //   this.setState({
-  //     username: e.target.value,
-  //   });
-  // };
-
-  // onChangePassword = (e) => {
-  //   this.setState({
-  //     password: e.target.value,
-  //   });
-  // };
-
-  // handleLoginSuccess = (success) => {
-  //   this.setState({ loginSuccess: success });
-  // };
-
   render() {
     return (
       <>
@@ -32,6 +10,7 @@ class Intro extends Component {
           <ButtonModal
             username={this.props.username}
             onChangeUsername={this.props.onChangeUsername}
+            officialUsername={this.props.officialUsername}
             password={this.props.password}
             onChangePassword={this.props.onChangePassword}
             loginSuccess={this.props.loginSuccess}
@@ -39,8 +18,10 @@ class Intro extends Component {
             buttonText="Log in"
           />
           <ButtonModal
+            history={this.props.history}
             username={this.props.username}
             onChangeUsername={this.props.onChangeUsername}
+            officialUsername={this.props.officialUsername}
             password={this.props.password}
             onChangePassword={this.props.onChangePassword}
             loginSuccess={this.props.loginSuccess}

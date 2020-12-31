@@ -41,7 +41,9 @@
     align-items: center;
     text-align: center;
     margin:15px;
+    display:block;
 }
+
 .inputFields label {
     font-size: 22px;
     color: white;

@@ -6,13 +6,13 @@ import {
   Route,
   Switch,
   Link,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 import GradesPage from "./pages/gradesPage";
 
 class App extends Component {
   state = {
-    username: "",
+    username: "johnson",
     password: "",
     loginSuccess: false,
   };
@@ -45,6 +45,7 @@ class App extends Component {
         <Router>
           <Switch>
             <Route
+              exact
               path="/"
               exact
               render={() => (
@@ -62,7 +63,12 @@ class App extends Component {
             <Route
               path="/grades"
               exact
-              render={() => <GradesPage username={this.state.username} />}
+              render={() => (
+                <GradesPage
+                  username={this.state.username}
+                  loginSuccess={this.state.loginSuccess}
+                />
+              )}
             />
           </Switch>
         </Router>

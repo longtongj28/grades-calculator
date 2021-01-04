@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { Component } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -7,25 +7,31 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./navbar.css";
+import { AiFillGithub, AiFillInfoCircle } from "react-icons/ai";
 
 class AppNavbar extends Component {
-  state = {
-    
-  };
-
-  
-
   render() {
     return (
       <div className="nbar">
-        <h3 className="siteName"><button>Grades?</button></h3>
+        <h3 className="siteName">
+          <button>Grades?</button>
+        </h3>
         <div className="links">
           <ul>
             <li>
-              <button>Github</button>
+              <a
+                title="Web App's Github Repo"
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/longtongj28/grades-calculator"
+              >
+                <AiFillGithub />
+              </a>
             </li>
             <li>
-              <button>About</button>
+              <a title="About">
+                <AiFillInfoCircle />
+              </a>
             </li>
           </ul>
         </div>

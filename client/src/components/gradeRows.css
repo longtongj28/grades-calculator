@@ -1,0 +1,90 @@
+* {
+  transition: all 0.4s;
+}
+
+.grade-rows {
+  margin-top: 75px;
+}
+.grades-row {
+  height: 80px;
+  margin: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-radius: 10px;
+  box-shadow: 5px 5px 20px -2px rgba(0, 0, 0, 0.8);
+}
+
+.edit-bar {
+  color: white;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.4);
+  box-shadow: 5px 5px 12px -2px rgba(0, 0, 0, 0.6);
+  position: absolute;
+  margin-top: 12px;
+  margin-bottom: 20px;
+  left: 15%;
+  right: 15%;
+  font-size: 25px;
+}
+
+.btn {
+  font-size: 20px;
+  height: 38px;
+  width: 200px;
+  background: none;
+  color: white;
+  outline: none;
+  border: solid;
+  border-color: white;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.btn.add {
+  position: absolute;
+  left: 2%;
+}
+
+.btn:hover {
+  background-color: rgba(151, 151, 151, 0.35);
+}
+
+.btn.random-color {
+  position: absolute;
+  right: 2%;
+}
+
+.course-title {
+    position: absolute;
+    left: 2%;
+    top: 25%;
+  font-size: 30px;
+}
+
+.total-grade {
+    position: absolute;
+    right: 25%;
+    top: 25%;
+  font-size: 30px;
+  font-style: italic;
+}
+
+.settings-icon {
+  position: absolute;
+  right: 7%;
+  top: 15%;
+  height: 55px;
+  width: 55px;
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+.settings-icon:hover {
+  transform: rotate(45deg) scale(1.3);
+}
+
+.settings-icon:active {
+  transform: rotate(-45deg) scale(1);
+}

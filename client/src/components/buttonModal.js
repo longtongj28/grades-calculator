@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Modal from "react-modal";
 import "./buttonModal.css";
 import axios from "axios";
-import {withRouter} from'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 const ConfirmPasswordField = (props) => {
   const show = props.getOrPost === 1 ? "block" : "none";
@@ -15,6 +15,7 @@ const ConfirmPasswordField = (props) => {
       <label>Confirm Password:</label>
       <br />
       <input
+        disabled={props.disabled}
         onChange={props.onChangeConfirmPassword}
         type="password"
         className="field passwordField confirm"
@@ -27,9 +28,18 @@ class ButtonModal extends Component {
   state = {
     isOpen: false,
     showPassword: false,
-    getOrPost: 0,
+    getOrPost: "",
     confirmPassword: "",
     allUsers: [],
+    disabled: false,
+    unique: false,
+  };
+
+  componentDidMount = () => {
+    axios.get("/users").then((res) => {
+      const data = res.data;
+      this.setState({ allUsers: data });
+    });
   };
 
   setIsOpen = () => {
@@ -44,37 +54,51 @@ class ButtonModal extends Component {
     });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const newUser = {
-      username: this.props.username,
-      password: this.props.password,
-    };
-
-    // login:get
+  allowLogin = () => {
+    //for login
+    let unique = true;
     if (this.state.getOrPost === 0) {
-      axios.get("/users").then((res) => {
-        const data = res.data;
-        this.setState({ allUsers: data });
-        for (let i = 0; i < this.state.allUsers.length; i++) {
-          if (this.state.allUsers[i].username === this.props.username) {
-            if (this.state.allUsers[i].password === this.props.password) {
-              this.props.handleLoginSuccess(true);
-            } else {
-              alert("Incorrect password.");
-              break;
-            }
-            break;
+      let found = false;
+      for (let i = 0; i < this.state.allUsers.length; i++) {
+        if (this.state.allUsers[i].username === this.props.username) {
+          found = true;
+          if (this.state.allUsers[i].password === this.props.password) {
+            return true;
           } else {
-            alert("User does not exist! Please create an account.");
-            this.resetForms();
-            break;
+            alert("Incorrect password.");
           }
         }
-      });
+      }
+      if (!found) {
+        alert("User does not exist! Please create an account.");
+      }
+    } else if (this.state.getOrPost === 1) {
+      for (let i = 0; i < this.state.allUsers.length; i++) {
+        if (this.state.allUsers[i].username === this.props.username) {
+          unique = false;
+        }
+      }
+      if (unique === true) return true;
     }
+    return false;
+  };
+
+  toggleDisabled = () => {
+    this.setState({
+      disabled: !this.state.disabled,
+    });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    let unique = true;
     // create a new account: post
-    else {
+    if (this.state.getOrPost === 1) {
+      const newUser = {
+        username: this.props.username,
+        password: this.props.password,
+      };
       if (
         this.props.username.length < 5 ||
         this.props.password.length < 5 ||
@@ -85,46 +109,49 @@ class ButtonModal extends Component {
         this.resetForms();
       }
       if (this.state.confirmPassword !== this.props.password) {
-        alert("Passwords do not match.");
         let pfs = document.getElementsByClassName("passwordField");
         for (let i = 0; i < pfs.length; i++) {
           pfs[i].value = "";
         }
+        alert("Passwords do not match.");
+        this.props.handleLoginSuccess(false);
+        return;
       }
-      let unique = true;
-      axios.get("/users").then((res) => {
-        const data = res.data;
-        this.setState({ allUsers: data });
-        for (let i = 0; i < this.state.allUsers.length; i++) {
-          if (this.state.allUsers[i].username === this.props.username) {
-            unique = false;
-            alert("User already exists!");
-            this.props.handleLoginSuccess(false);
-            this.resetForms();
-          }
+      for (let i = 0; i < this.state.allUsers.length; i++) {
+        if (this.state.allUsers[i].username === this.props.username) {
+          unique = false;
+          alert("User already exists!");
+          this.props.handleLoginSuccess(false);
+          return;
         }
-      });
+      }
       if (unique) {
+        this.setState({ unique: true }, () => {
+          console.log(this.state.unique);
+        });
         axios
           .post("/users/create", newUser)
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err));
-        this.handleLoginSuccess(true);
+        this.props.handleLoginSuccess(true);
       }
     }
-    // officially change the state of app if login was successful
-    if (this.props.handleLoginSuccess){
-      // const allFields = document.getElementsByClassName("inputFields");
-      // while () {
-      //   allFields[0].disp
-      // }
-      this.props.history.push('/grades');
+  };
+
+  officialUpdateToParent = () => {
+    if (this.allowLogin() === true) {
+      this.toggleDisabled();
+      this.props.handleLoginSuccess(true);
+      setTimeout(() => {
+        this.props.history.push("/grades");
+      }, 2000);
     }
   };
 
   resetForms = () => {
     const ele = document.getElementsByClassName("field");
     for (let i = 0; i < ele.length; i++) ele[i].value = "";
+    this.props.handleLoginSuccess(false);
   };
 
   toggleShowPassword = () => {
@@ -143,7 +170,8 @@ class ButtonModal extends Component {
 
   setGETorPOST = () => {
     if (this.props.buttonText === "Log in") this.setState({ getOrPost: 0 });
-    else this.setState({ getOrPost: 1 });
+    else if (this.props.buttonText === "Create an Account")
+      this.setState({ getOrPost: 1 });
   };
 
   render() {
@@ -167,7 +195,7 @@ class ButtonModal extends Component {
               backgroundColor: "rgba(0,0,0,0.4)",
             },
             content: {
-              boxShadow: "2px 2px 30px rgba(0,0,0,0.4)",
+              boxShadow: "2px 2px 30px rgba(0,0,0,0.5)",
               background: "#363732",
               top: "10%",
               bottom: "20%",
@@ -177,6 +205,7 @@ class ButtonModal extends Component {
             },
           }}
           onRequestClose={this.setIsOpen}
+          shouldCloseOnOverlayClick={false}
         >
           <p className="title">{this.props.buttonText}</p>
           <hr />
@@ -184,32 +213,48 @@ class ButtonModal extends Component {
             <div className="inputFields">
               <label>Username: </label>
               <br />
-              <input className="field" onChange={this.props.onChangeUsername} />
+              <input
+                disabled={this.state.disabled}
+                className="field"
+                onChange={this.props.onChangeUsername}
+              />
             </div>
             <div className="inputFields">
               <label>Password:</label>
               <br />
               <input
+                disabled={this.state.disabled}
                 onChange={this.props.onChangePassword}
                 className="field passwordField"
                 type="password"
               ></input>
             </div>
             <ConfirmPasswordField
+              disabled={this.state.disabled}
               onChangeConfirmPassword={this.onChangeConfirmPassword}
               getOrPost={this.state.getOrPost}
             />
             <div className="show-password">
               <label>Show Password</label>
-              <input onChange={this.toggleShowPassword} type="checkbox" />
+              <input
+                disabled={this.state.disabled}
+                onChange={this.toggleShowPassword}
+                type="checkbox"
+              />
             </div>
             <input
+              onClick={this.officialUpdateToParent}
+              disabled={this.state.disabled}
               type="submit"
               className="enterPageButton"
               value={this.props.buttonText}
             />
           </form>
-          <button className="closeButtonX" onClick={this.setIsOpen}>
+          <button
+            disabled={this.state.disabled}
+            className="closeButtonX"
+            onClick={this.setIsOpen}
+          >
             X
           </button>
         </Modal>

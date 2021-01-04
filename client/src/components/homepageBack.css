@@ -1,6 +1,7 @@
 .homepageBackground{
     z-index:-1;
     position:absolute;
+    overflow:scroll;
     left: 0;
     top: 0;
     background-size: cover;
@@ -9,5 +10,5 @@
     background-attachment:fixed;
     height: 100%;
     width: 100%;
-    background-image: url(../img/homepage.jpg); 
+    background-image: url(../img/animatedHomepage.gif); 
 }

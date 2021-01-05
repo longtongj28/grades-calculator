@@ -23,7 +23,10 @@ class GradesPage extends Component {
     return (
       <>
         <div className="homepageBackground">
-          <GradesNavbar username={this.props.username} />
+          <GradesNavbar
+            username={this.props.username}
+            handleLoginSuccess={this.props.handleLoginSuccess}
+          />
           <GradeRows username={this.props.username} />
         </div>
       </>

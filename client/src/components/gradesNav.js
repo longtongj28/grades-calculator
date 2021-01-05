@@ -7,25 +7,51 @@ import {
   Redirect,
 } from "react-router-dom";
 import "./navbar.css";
+import { AiFillGithub } from "react-icons/ai";
+import { MdExitToApp } from "react-icons/md";
+import { FaUsersCog } from "react-icons/fa";
+import { AiFillQuestionCircle, AiFillInfoCircle } from "react-icons/ai";
 
 class GradesNavbar extends Component {
-  state = {
-    
-  };
-
-  
+  state = {};
 
   render() {
     return (
       <div className="nbar">
-        <h3 className="siteName"><button>{this.props.username}'s Grades</button></h3>
+        <p className="siteName">
+          {this.props.username}'s Grades
+        </p>
         <div className="links">
           <ul>
             <li>
-              <button>Github</button>
+              <a
+                title="Web App's Github Repo"
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/longtongj28/grades-calculator"
+              >
+                <AiFillGithub />
+              </a>
             </li>
             <li>
-              <button>Settings</button>
+              <a title="About">
+                <AiFillInfoCircle />
+              </a>
+            </li>
+            <li>
+              <a title="How to use?">
+                <AiFillQuestionCircle />
+              </a>
+            </li>
+            <li>
+              <a title="User settings">
+                <FaUsersCog />
+              </a>
+            </li>
+            <li>
+              <a title="Log out" href="/">
+                <MdExitToApp />
+              </a>
             </li>
           </ul>
         </div>

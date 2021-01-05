@@ -23,6 +23,7 @@ router.post("/", (req, res) => {
 //add a new category to a course
 router.post("/category", (req, res) => {
   const newCategory = new userCourse.CourseCategory({
+    username: req.body.username,
     categoryName: req.body.categoryName,
   });
 
@@ -36,6 +37,8 @@ router.post("/category", (req, res) => {
 //add an assignment to a category
 router.post("/category/assignment", (req, res) => {
   const newAssignment = new userCourse.CategoryAssignment({
+    username:req.body.username,
+    categoryName: req.body.categoryName,
     assignmentName: req.body.assignmentName,
     score: req.body.score,
   });

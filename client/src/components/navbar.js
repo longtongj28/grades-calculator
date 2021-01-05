@@ -13,9 +13,9 @@ class AppNavbar extends Component {
   render() {
     return (
       <div className="nbar">
-        <h3 className="siteName">
-          <button>Grades?</button>
-        </h3>
+        <p className="siteName">
+          Grades?
+        </p>
         <div className="links">
           <ul>
             <li>

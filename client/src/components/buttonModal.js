@@ -28,7 +28,7 @@ class ButtonModal extends Component {
   state = {
     isOpen: false,
     showPassword: false,
-    getOrPost: "",
+    getOrPost: 0,
     confirmPassword: "",
     allUsers: [],
     disabled: false,
@@ -56,7 +56,6 @@ class ButtonModal extends Component {
 
   allowLogin = () => {
     //for login
-    let unique = true;
     if (this.state.getOrPost === 0) {
       let found = false;
       for (let i = 0; i < this.state.allUsers.length; i++) {
@@ -73,12 +72,13 @@ class ButtonModal extends Component {
         alert("User does not exist! Please create an account.");
       }
     } else if (this.state.getOrPost === 1) {
-      for (let i = 0; i < this.state.allUsers.length; i++) {
-        if (this.state.allUsers[i].username === this.props.username) {
-          unique = false;
-        }
+      console.log("got here");
+      console.log("unique", this.state.unique);
+      if (this.state.unique === true) {
+        console.log("got here 2");
+        return true;
       }
-      if (unique === true) return true;
+      else return false;
     }
     return false;
   };
@@ -89,11 +89,11 @@ class ButtonModal extends Component {
     });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    let unique = true;
-    // create a new account: post
+  handleSubmit = (event) => {
+    event.preventDefault();
+    if (this.state.getOrPost === 0) {
+      this.officialUpdateToParent();
+    }
     if (this.state.getOrPost === 1) {
       const newUser = {
         username: this.props.username,
@@ -119,22 +119,19 @@ class ButtonModal extends Component {
       }
       for (let i = 0; i < this.state.allUsers.length; i++) {
         if (this.state.allUsers[i].username === this.props.username) {
-          unique = false;
           alert("User already exists!");
           this.props.handleLoginSuccess(false);
           return;
         }
       }
-      if (unique) {
-        this.setState({ unique: true }, () => {
-          console.log(this.state.unique);
-        });
-        axios
-          .post("/users/create", newUser)
-          .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
-        this.props.handleLoginSuccess(true);
-      }
+      this.setState({
+        unique: true,
+      }, () => {
+        console.log("unique set to true");
+        this.officialUpdateToParent();
+      });
+      this.props.addNewUserDB(newUser);
+      
     }
   };
 
@@ -145,7 +142,9 @@ class ButtonModal extends Component {
       setTimeout(() => {
         this.props.history.push("/grades");
       }, 2000);
+      return;
     }
+    return;
   };
 
   resetForms = () => {
@@ -243,7 +242,6 @@ class ButtonModal extends Component {
               />
             </div>
             <input
-              onClick={this.officialUpdateToParent}
               disabled={this.state.disabled}
               type="submit"
               className="enterPageButton"

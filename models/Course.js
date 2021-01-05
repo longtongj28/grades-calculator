@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const CategoryAssignment = new Schema({
+  username: { type: String, required: true },
+  categoryName: { type: String, default: "Course Category" },
   assignmentName: { type: String, default: "Assignment Name" },
   score: { type: Number, default: 100, min: 0 },
 });
 
 const CourseCategory = new Schema({
+  username: { type: String, required: true },
   categoryName: { type: String, default: "Course Category" },
   assignments: [CategoryAssignment],
 });

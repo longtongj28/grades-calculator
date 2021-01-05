@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./gradeRows.css";
 import AddAClass from "./addAClass";
-import {FcSettings} from 'react-icons/fc'
+import CourseSettings from './courseSettings'
+
 
 function shuffle(array) {
   var m = array.length, t, i;
@@ -116,6 +117,7 @@ class GradeRows extends Component {
             addClassToDB={this.addClassToDB}
             filterDB={this.filterDB}
           />
+        {this.state.courses.length===0 && <div className="get-started">Get started by adding a course!</div>}
           <button onClick={this.randomizeColors} className="btn random-color">
             <div>Randomize Colors</div>
           </button>
@@ -134,7 +136,7 @@ class GradeRows extends Component {
             >
               <div className="course-title">{course.courseName}</div>
               <div className="total-grade">Grade: {this.state.totalGrade}</div>
-              <FcSettings className="settings-icon"/>
+              <CourseSettings/>
             </div>
           ))}
         </div>

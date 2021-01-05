@@ -14,6 +14,7 @@ class Intro extends Component {
             password={this.props.password}
             onChangePassword={this.props.onChangePassword}
             loginSuccess={this.props.loginSuccess}
+            addNewUserDB={this.props.addNewUserDB}
             handleLoginSuccess={this.props.handleLoginSuccess}
             buttonText="Log in"
           />
@@ -23,6 +24,7 @@ class Intro extends Component {
             onChangeUsername={this.props.onChangeUsername}
             officialUsername={this.props.officialUsername}
             password={this.props.password}
+            addNewUserDB={this.props.addNewUserDB}
             onChangePassword={this.props.onChangePassword}
             loginSuccess={this.props.loginSuccess}
             handleLoginSuccess={this.props.handleLoginSuccess}

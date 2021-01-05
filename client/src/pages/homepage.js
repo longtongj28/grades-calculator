@@ -18,6 +18,7 @@ class Homepage extends Component {
             password={this.props.password}
             onChangePassword={this.props.onChangePassword}
             loginSuccess={this.props.loginSuccess}
+            addNewUserDB={this.props.addNewUserDB}
             handleLoginSuccess={this.props.handleLoginSuccess}
           />
           <AboutGrades />

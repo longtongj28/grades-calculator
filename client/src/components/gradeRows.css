@@ -1,7 +1,13 @@
 * {
   transition: all 0.4s;
 }
-
+.get-started {
+    position: absolute;
+    top:25%;
+    left:50%;
+    transform: translateX(-50%);
+    color: white;
+}
 .grade-rows {
   margin-top: 75px;
 }

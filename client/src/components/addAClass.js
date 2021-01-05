@@ -32,7 +32,7 @@ class AddAClass extends Component {
           closeTimeoutMS={100}
           isOpen={this.state.openModal}
           onRequestClose={this.setOpenModal}
-          shouldCloseOnOverlayClick={false}
+          shouldCloseOnOverlayClick={true}
           style={{
             overlay: { backgroundColor: "rgba(0,0,0,0.4)" },
             content: {

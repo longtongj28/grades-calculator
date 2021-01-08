@@ -10,6 +10,12 @@ router.get("/", (req, res) => {
   userCourse.Course.find().then((courses) => res.json(courses));
 });
 
+router.get("/:id", (req, res) => {
+  userCourse.Course.findById(req.params.id).then((courses) =>
+    res.json(courses)
+  );
+});
+
 // add a new course
 router.post("/", (req, res) => {
   const newCourse = new userCourse.Course({
@@ -24,7 +30,9 @@ router.post("/", (req, res) => {
 router.post("/category", (req, res) => {
   const newCategory = new userCourse.CourseCategory({
     username: req.body.username,
+    courseID: req.body.courseID,
     categoryName: req.body.categoryName,
+    percentWorth: req.body.percentWorth,
   });
 
   userCourse.Course.findById(req.body.courseID).then((foundCourse) => {
@@ -37,19 +45,26 @@ router.post("/category", (req, res) => {
 //add an assignment to a category
 router.post("/category/assignment", (req, res) => {
   const newAssignment = new userCourse.CategoryAssignment({
-    username:req.body.username,
+    username: req.body.username,
     categoryName: req.body.categoryName,
     assignmentName: req.body.assignmentName,
     score: req.body.score,
   });
 
-  userCourse.CourseCategory.findById(req.body.categoryID).then((foundCategory) => {
-    foundCategory.assignments.push(newAssignment);
-    newAssignment.save();
-    foundCategory.save().then((savedCategory) => res.json(savedCategory));
-  })
-  
-  
+  userCourse.CourseCategory.findById(req.body.categoryID).then(
+    (foundCategory) => {
+      foundCategory.assignments.push(newAssignment);
+      newAssignment.save();
+      foundCategory.save().then((savedCategory) => res.json(savedCategory));
+    }
+  );
+});
+// edit course name
+router.put("/:id", (req, res) => {
+  userCourse.Course.findById(req.params.id).then((foundCourse) => {
+    foundCourse.courseName = req.body.newCourseName;
+    foundCourse.save().then((savedCourse) => res.send(savedCourse));
+  });
 });
 
 router.delete("/:id", (req, res) => {

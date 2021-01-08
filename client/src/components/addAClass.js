@@ -40,7 +40,7 @@ class AddAClass extends Component {
               background: "#DDF2EB",
               boxShadow: "5px 5px 15px rgba(0,0,0,0.5)",
               top: "30%",
-              bottom: "40%",
+              bottom: "35%",
               left: "30%",
               right: "30%",
             },

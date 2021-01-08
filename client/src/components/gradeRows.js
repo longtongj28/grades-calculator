@@ -2,15 +2,15 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./gradeRows.css";
 import AddAClass from "./addAClass";
-import CourseSettings from './courseSettings'
-
+import CourseSettings from "./courseSettings";
 
 function shuffle(array) {
-  var m = array.length, t, i;
+  var m = array.length,
+    t,
+    i;
 
   // While there remain elements to shuffle…
   while (m) {
-
     // Pick a remaining element…
     i = Math.floor(Math.random() * m--);
 
@@ -21,7 +21,7 @@ function shuffle(array) {
   }
 
   return array;
-};
+}
 
 class GradeRows extends Component {
   state = {
@@ -36,7 +36,7 @@ class GradeRows extends Component {
       "#136F63",
       "#586A6A",
       "#909580",
-      "#C97C5D", 
+      "#C97C5D",
       "#B36A5E",
       "#902923",
       "#932F6D",
@@ -72,11 +72,12 @@ class GradeRows extends Component {
       }
       this.setCourses(userData);
     });
-  }
+    console.log("new user data updated");
+  };
 
   shuffleColors = () => {
     this.setState({
-      colorArray: shuffle(this.state.colorArray)
+      colorArray: shuffle(this.state.colorArray),
     });
   };
 
@@ -90,11 +91,12 @@ class GradeRows extends Component {
     this.shuffleColors();
     const allGradeRows = document.getElementsByClassName("grades-row");
     for (let i = 0; i < allGradeRows.length; i++) {
-      allGradeRows[i].style.backgroundColor = this.state.colorArray[i]
+      allGradeRows[i].style.backgroundColor = this.state.colorArray[i];
     }
   };
 
   addClassToDB = (courseName) => {
+    if (courseName.length === 0) return alert("Please enter a course name.");
     const newCourse = {
       username: this.props.username,
       courseName: courseName,
@@ -103,6 +105,14 @@ class GradeRows extends Component {
       .post("/courses", newCourse)
       .then()
       .catch((err) => console.log(err));
+    console.log("course added");
+    this.filterDB();
+  };
+
+  deleteCourse = (cID) => {
+    axios.delete(`/courses/${cID}`).then((res) => console.log(res));
+    console.log("course deleted from db");
+    this.filterDB();
   };
 
   calculateTotalGrade = () => {};
@@ -117,7 +127,9 @@ class GradeRows extends Component {
             addClassToDB={this.addClassToDB}
             filterDB={this.filterDB}
           />
-        {this.state.courses.length===0 && <div className="get-started">Get started by adding a course!</div>}
+          {this.state.courses.length === 0 && (
+            <div className="get-started">Get started by adding a course!</div>
+          )}
           <button onClick={this.randomizeColors} className="btn random-color">
             <div>Randomize Colors</div>
           </button>
@@ -127,16 +139,22 @@ class GradeRows extends Component {
             <div
               className="grades-row"
               style={{
-                display:"flex",
-                position:"relative",
+                display: "flex",
+                position: "relative",
                 color: "white",
-                backgroundColor:this.state.colorArray[i]
+                backgroundColor: this.state.colorArray[i],
               }}
               key={i}
             >
               <div className="course-title">{course.courseName}</div>
               <div className="total-grade">Grade: {this.state.totalGrade}</div>
-              <CourseSettings/>
+              <CourseSettings
+                courseName={course.courseName}
+                username={this.props.username}
+                courseID={course._id}
+                deleteCourse={this.deleteCourse}
+                filterDB={this.filterDB}
+              />
             </div>
           ))}
         </div>

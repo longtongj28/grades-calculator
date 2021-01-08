@@ -10,7 +10,9 @@ const CategoryAssignment = new Schema({
 
 const CourseCategory = new Schema({
   username: { type: String, required: true },
+  courseID: { type: String },
   categoryName: { type: String, default: "Course Category" },
+  percentWorth: { type: Number },
   assignments: [CategoryAssignment],
 });
 
@@ -18,7 +20,6 @@ const CourseSchema = new Schema({
   username: { type: String, required: true },
   courseName: {
     type: String,
-    unique: true,
     required: true,
   },
   courseCategories: [CourseCategory],

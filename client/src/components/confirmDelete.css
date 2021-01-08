@@ -1,0 +1,35 @@
+.confirm-delete-btn-group {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, 10%);
+}
+
+.confirm-delete-btn-group button {
+    outline: none;
+    border: none;
+    height: 40px;
+    width: 130px;
+    font-size: 22px;
+    background: rgb(109, 14, 33);
+    cursor: pointer;
+    color: white;
+    margin: 15px;
+}
+
+.confirm-delete-btn-group button:hover {
+    transform: scale(1.1);
+    background:darkkhaki;
+    color: black;
+}
+
+.confirm-text {
+    position: absolute;
+    width: 100%;
+    text-align:center;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -30%);
+    font-size: 22px;
+}

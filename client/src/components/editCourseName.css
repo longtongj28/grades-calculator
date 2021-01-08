@@ -1,0 +1,56 @@
+.x-btn-2 {
+    background: none;
+    outline: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    position: absolute;
+    right: 5%;
+    top: 5%;
+}
+.x-btn-2:hover{
+    transform: scale(1.3);
+}
+
+.btn-group-edit-course-name {
+    position: absolute;
+    display: flex;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-50%, -10%)
+}
+
+.btn-group-edit-course-nameb {
+    margin: 15px;
+    width: 150px;
+    font-size: 22px;
+    border: none;
+    outline: none;
+    cursor:pointer;
+    background:#941C2F;
+    color: white;
+    box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.3);
+}
+
+.btn-group-edit-course-nameb:hover {
+    transform: scale(1.1);
+    background:cornsilk;
+    color: black;
+}
+
+.new-course-name {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    transform: translate(-50%, -25%);
+}
+.new-course-name input {
+    font-size: 25px;
+}
+
+.overall-grade {
+    position: absolute;
+    bottom: 10%;
+    width: 95%;
+    text-align: center;
+}

@@ -1,0 +1,56 @@
+.edit-assignment-btn-group {
+    position: absolute;
+    left: 50%;
+    bottom: 15%;
+    transform: translate(-50%, 15%);
+}
+.edit-assignment-btn-group button {
+    margin: 15px;
+    background:rgb(4, 4, 144);
+    color: white;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    height: 30px;
+    width: 130px;
+    box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.3);
+    cursor:pointer;
+}
+
+.edit-assignment-btn-group button:hover {
+    transform: scale(1.1);
+}
+.edit-assignment-btn-group button:active {
+    transform:scale(1);
+}
+
+.edit-label {
+    text-decoration: underline;
+    margin: 15px;
+}
+
+.new-assignment-name-section {
+    text-align: center;
+    font-size: 18px;
+}
+
+.new-assignment-name-section input {
+    font-size: 18px;
+}
+
+.new-assignment-score-section {
+    text-align: center;
+    font-size: 18px;
+}
+
+.new-assignment-score-section input {
+    width: 100px;
+    font-size: 18px;
+}
+
+.new-assignment-name-label {
+    margin-bottom: 10px;
+}
+.new-assignment-score-label {
+    margin-bottom: 10px;
+}

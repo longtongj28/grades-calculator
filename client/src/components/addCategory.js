@@ -6,12 +6,14 @@ class AddCategory extends Component {
   state = {
     modalIsOpen: false,
     newCategoryName: "",
-    newCategoryPWorth: 0,
+    newCategoryPWorth: "",
   };
 
   setModalIsOpen = () => {
     this.setState({
       modalIsOpen: !this.state.modalIsOpen,
+      newCategoryName: "",
+      newCategoryPWorth: "",
     });
   };
 
@@ -29,8 +31,16 @@ class AddCategory extends Component {
 
   onSubmitCInfo = (e) => {
     e.preventDefault();
-
-    if (this.state.newCategoryName.length === 0) return alert("Please enter a category name.")
+    for (let i = 0; i < this.props.categories.length; i++) {
+      if (
+        this.state.newCategoryName === this.props.categories[i].categoryName
+      ) {
+        return alert("You already have a category under that name!");
+      }
+    }
+    if (this.state.newCategoryName.length === 0 || this.state.newCategoryPWorth.length === 0)
+      return alert("Please enter all category details.");
+    if(this.state.newCategoryPWorth < 0) return alert("Cannot user negative percentage values!");
     this.props.addCategory(
       this.state.newCategoryName,
       this.state.newCategoryPWorth

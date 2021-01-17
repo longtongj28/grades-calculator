@@ -1,6 +1,10 @@
 * {
   transition: all 0.4s;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
 .get-started {
     position: absolute;
     top:25%;

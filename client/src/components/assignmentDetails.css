@@ -1,0 +1,137 @@
+.close-btn-assignments {
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    cursor:pointer;
+    font-size: 22px;
+}
+
+.close-btn-assignments:hover {
+    transform: scale(1.3);
+}
+
+.assignment-details-title {
+    position: absolute;
+    top: 5%;
+    text-decoration: underline;
+    font-size: 22px;
+    left: 50%;
+    transform: translate(-50%, -5%);
+}
+
+.add-assignment-section {
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    display: flex;
+}
+
+.add-assignment-btn-modal {
+    cursor: pointer;
+    background: none;
+    border: solid;
+    outline: none;
+    font-size: 15px;
+    border-color: black;
+}
+.add-assignment-btn-modal:hover {
+    transform: scale(1.05);
+}
+
+.add-assignment-btn-modal:active {
+    transform: scale(1);
+}
+
+.assignment-rows {
+    position: absolute;
+    color: white;
+    top: 25%;
+    right: 5%;
+    left: 5%;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+.assignment-row {
+    display: flex;
+    margin: 10px;
+    border-radius: 10px;
+    height: 30px;
+}
+.assignment-score{
+    position: absolute;
+    text-align: center;
+    top:20%;
+    right: 20%;
+}
+
+.delete-assignment-btn{
+    color: white;
+    position: absolute;
+    top: 20%;
+    cursor: pointer;
+    right: 5%;
+}
+
+.delete-assignment-btn:hover {
+    transform: scale(1.3);
+}
+
+.delete-assignment-btn:active {
+    transform:scale(1);
+}
+
+.total-category-grade {
+    position: absolute;
+    text-decoration: underline;
+    text-align: center;
+    line-height: 30px;
+    border: solid;
+    height: 30px;
+    width: 275px;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%, -15%);
+}
+.assignment-name {
+    position: absolute;
+    top: 20%;
+    text-align: center;
+    left: 2%;
+}
+
+.edit-assignment-btn {
+    position: absolute;
+    cursor:pointer;
+    left: 37%;
+    top: 15%;
+    color: white;
+    outline: none;
+    background: none;
+    border: solid;
+    border-color: white;;
+}
+.edit-assignment-btn:hover {
+    transform: scale(1.1);
+}
+.edit-assignment-btn:active {
+    transform: scale(1);
+}
+
+.assignment-headers {
+    display: flex;
+    color: black;
+    height: 20px;
+}
+.score-header {
+    position: absolute;
+    text-decoration: underline;
+    right: 21%;
+    top: 5px;
+}
+
+.assignment-name-header {
+    position: absolute;
+    top:5px;
+    left:5%;
+    text-decoration: underline;
+}

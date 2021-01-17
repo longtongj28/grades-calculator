@@ -30,7 +30,7 @@
     border: none;
     color: white;
 }
-.nbar li a {
+.nbar-btns {
     font-size: 2rem;
     cursor: pointer;
     transition: all 0.5s;

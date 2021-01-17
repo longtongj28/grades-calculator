@@ -1,16 +1,9 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect,
-} from "react-router-dom";
 import "./navbar.css";
 import { AiFillGithub } from "react-icons/ai";
 import { MdExitToApp } from "react-icons/md";
-import { FaUsersCog } from "react-icons/fa";
-import { AiFillQuestionCircle, AiFillInfoCircle } from "react-icons/ai";
+import About from "./navbarButtons/about";
+import UserSettings from "./navbarButtons/userSettings";
 
 class GradesNavbar extends Component {
   state = {};
@@ -18,13 +11,12 @@ class GradesNavbar extends Component {
   render() {
     return (
       <div className="nbar">
-        <p className="siteName">
-          {this.props.username}'s Grades
-        </p>
+        <p className="siteName">{this.props.username}'s Grades</p>
         <div className="links">
           <ul>
             <li>
               <a
+                className="nbar-btns"
                 title="Web App's Github Repo"
                 target="_blank"
                 rel="noreferrer"
@@ -34,22 +26,13 @@ class GradesNavbar extends Component {
               </a>
             </li>
             <li>
-              <a title="About">
-                <AiFillInfoCircle />
-              </a>
+              <About />
             </li>
             <li>
-              <a title="How to use?">
-                <AiFillQuestionCircle />
-              </a>
+              <UserSettings {...this.props}/>
             </li>
             <li>
-              <a title="User settings">
-                <FaUsersCog />
-              </a>
-            </li>
-            <li>
-              <a title="Log out" href="/">
+              <a className="nbar-btns" title="Log out" href="/">
                 <MdExitToApp />
               </a>
             </li>

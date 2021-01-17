@@ -3,16 +3,18 @@ const Schema = mongoose.Schema;
 
 const CategoryAssignment = new Schema({
   username: { type: String, required: true },
-  categoryName: { type: String, default: "Course Category" },
+  categoryID: { type: String },
+  courseID: { type: String },
   assignmentName: { type: String, default: "Assignment Name" },
-  score: { type: Number, default: 100, min: 0 },
+  scoreNum: { type: Number, default: 100, min: 0 },
+  scoreDenom: { type: Number, default: 100, min: 0 },
 });
 
 const CourseCategory = new Schema({
   username: { type: String, required: true },
   courseID: { type: String },
   categoryName: { type: String, default: "Course Category" },
-  percentWorth: { type: Number },
+  percentWorth: { type: Number, default: 100 },
   assignments: [CategoryAssignment],
 });
 

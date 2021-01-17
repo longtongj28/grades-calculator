@@ -9,57 +9,46 @@ import "./courseSettings.css";
 import AddCategory from "./addCategory";
 import EditCourseName from "./editCourseName";
 import ConfirmDelete from "./confirmDelete";
-import axios from "axios";
+
+import { shuffle } from "./gradeRows";
+import CategoryRow from "./categoryRow";
 
 class CourseSettings extends Component {
   state = {
     modalIsOpen: false,
-    categories: [],
     empty: true,
     colorArray: [
-      "#994636",
-      "#303633",
-      "#586A6A",
-      "#14453D",
+      "#001427",
       "#61A0AF",
+      "#9D5C63",
+      "#303633",
       "#7EA2AA",
+      "#136F63",
+      "#586A6A",
+      "#909580",
+      "#C97C5D",
+      "#B36A5E",
+      "#902923",
+      "#932F6D",
+      "#994636",
       "#D55672",
       "#14BDEB",
+      "#AE8E1C",
+      "#FF6700",
+      "#14453D",
     ],
   };
 
-  getCourseCategories = () => {
-    axios.get(`/courses/${this.props.courseID}`).then((res) => {
-      let categories = [];
-      let data = res.data;
-      for (let i = 0; i < data.courseCategories.length; i++) {
-        categories.push(data.courseCategories[i]);
-      }
-      console.log(categories);
-      this.setState(
-        {
-          categories: categories,
-        },
-        () => {
-          console.log(this.state.categories);
-        }
-      );
+  componentDidMount = () => {
+    this.shuffleColors();
+  };
+  shuffleColors = () => {
+    let shuffledColors = shuffle(this.state.colorArray);
+    this.setState({
+      colorArray: shuffledColors,
     });
   };
-
-  addCategory = (newCatName, newPercWorth) => {
-    const newCategory = {
-      username: this.props.username,
-      courseID: this.props.courseID,
-      categoryName: newCatName,
-      percentWorth: newPercWorth,
-    };
-    axios
-      .post("/courses/category", newCategory)
-      .then((res) => console.log(res));
-    this.getCourseCategories();
-  };
-
+  
   setModalIsOpen = () => {
     this.setState({
       modalIsOpen: !this.state.modalIsOpen,
@@ -71,7 +60,8 @@ class CourseSettings extends Component {
         <FcSettings
           onClick={() => {
             this.setModalIsOpen();
-            this.getCourseCategories();
+            this.shuffleColors();
+            this.props.getCourseCategories();
           }}
           title="Click to add scores and course categories"
           className="settings-icon"
@@ -84,6 +74,8 @@ class CourseSettings extends Component {
             overlay: { backgroundColor: "rgba(0,0,0,0.4)" },
             content: {
               background: "#F9DBBD",
+              border: "none",
+              borderRadius:"none",
               top: "10%",
               bottom: "10%",
               left: "15%",
@@ -104,9 +96,11 @@ class CourseSettings extends Component {
           </div>
           <div className="center-bar">
             <AddCategory
-              addCategory={this.addCategory}
-              getCourseCategories={this.getCourseCategories}
+              addCategory={this.props.addCategory}
+              categories={this.props.categories}
+              getCourseCategories={this.props.getCourseCategories}
             />
+
             <EditCourseName
               courseID={this.props.courseID}
               filterDB={this.props.filterDB}
@@ -114,7 +108,7 @@ class CourseSettings extends Component {
           </div>
           <div className="course-name">{this.props.courseName}</div>
           <hr />
-          {this.state.categories.length === 0 && (
+          {this.props.categories.length === 0 && (
             <div className="get-startedMODAL">
               <p>
                 Get started by adding your course grade categories and
@@ -122,53 +116,59 @@ class CourseSettings extends Component {
               </p>
             </div>
           )}
-          <div className="category-rows">
-            <div
-              className="category-header"
-              style={{ display: "flex", color: "white" }}
-            >
+
+          {this.props.categories.length > 0 && (
+            <div className="category-rows">
               <div
-                style={{
-                  textDecoration: "underline",
-                  fontSize: "18px",
-                  position: "absolute",
-                  top: "10px",
-                  left: "5%",
-                }}
+                className="category-header"
+                style={{ display: "flex", color: "white" }}
               >
-                Category
-              </div>
-              <div
-                style={{
-                  textDecoration: "underline",
-                  fontSize: "18px",
-                  position: "absolute",
-                  top: "10px",
-                  right: "3%",
-                }}
-              >
-                Percent of Course Grade
-              </div>
-            </div>
-            <div style={{ marginTop: "35px" }}>
-              {this.state.categories.map((category, i) => (
                 <div
                   style={{
-                    display: "flex",
-                    position: "relative",
-                    color: "white",
-                    backgroundColor: this.state.colorArray[i],
+                    textDecoration: "underline",
+                    fontSize: "18px",
+                    position: "absolute",
+                    top: "10px",
+                    left: "7%",
                   }}
-                  className="category-row"
-                  key={i}
                 >
-                  <div className="category-name">{category.categoryName}</div>
-                  <div className="percent-worth">{category.percentWorth}%</div>
+                  Category
                 </div>
-              ))}
+                <div
+                  style={{
+                    textDecoration: "underline",
+                    fontSize: "18px",
+                    position: "absolute",
+                    top: "10px",
+                    right: "25%",
+                  }}
+                >
+                  Percent of Course Grade
+                </div>
+                <div className="category-grade-header">Category Grade</div>
+              </div>
+              <div style={{ marginTop: "35px" }}>
+                {this.props.categories.map((category, i) => (
+                  <CategoryRow
+                    key={i}
+                    {...this.props}
+                    backgroundColor={this.state.colorArray[i]}
+                    colorArray={this.state.colarArray}
+                    courseID={this.props.courseID}
+                    categories={this.props.categories}
+                    getCourseCategories={this.props.getCourseCategories}
+                    courseCategoryID={category._id}
+                    serverCategories={this.props.serverCategories}
+                    categoryName={category.categoryName}
+                    percentWorth={category.percentWorth}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-          <div className="overall-grade">Overall Grade:</div>
+          )}
+          {this.props.categories.length > 0 && (
+            <div className="overall-grade">Overall Grade: {this.props.totalGrade.toFixed(2)}%</div>
+          )}
         </Modal>
       </>
     );

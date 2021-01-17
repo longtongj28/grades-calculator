@@ -42,32 +42,29 @@ router.post("/category", (req, res) => {
   });
 });
 
-//add an assignment to a category
-router.post("/category/assignment", (req, res) => {
-  const newAssignment = new userCourse.CategoryAssignment({
-    username: req.body.username,
-    categoryName: req.body.categoryName,
-    assignmentName: req.body.assignmentName,
-    score: req.body.score,
-  });
-
-  userCourse.CourseCategory.findById(req.body.categoryID).then(
-    (foundCategory) => {
-      foundCategory.assignments.push(newAssignment);
-      newAssignment.save();
-      foundCategory.save().then((savedCategory) => res.json(savedCategory));
-    }
-  );
-});
 // edit course name
-router.put("/:id", (req, res) => {
-  userCourse.Course.findById(req.params.id).then((foundCourse) => {
+router.put("/", (req, res) => {
+  userCourse.Course.findById(req.body.courseID).then((foundCourse) => {
     foundCourse.courseName = req.body.newCourseName;
     foundCourse.save().then((savedCourse) => res.send(savedCourse));
   });
 });
 
 router.delete("/:id", (req, res) => {
+  userCourse.CategoryAssignment.find().then((foundAssignments) => {
+    for (let i = 0; i < foundAssignments.length; i++) {
+      if (foundAssignments[i].courseID === req.params.id.toString()) {
+        foundAssignments[i].remove();
+      }
+    }
+  });
+  userCourse.CourseCategory.find().then((foundCategories) => {
+    for (let i = 0; i < foundCategories.length; i++) {
+      if (foundCategories[i].courseID === req.params.id.toString()) {
+        foundCategories[i].remove();
+      }
+    }
+  });
   userCourse.Course.findById(req.params.id)
     .then((course) => course.remove().then(() => res.json({ success: true })))
     .catch((err) => res.status(404).json({ success: false }));

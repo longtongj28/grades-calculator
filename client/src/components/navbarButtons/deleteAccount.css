@@ -1,0 +1,40 @@
+.delete-account-button-group {
+    position: absolute;
+    display: flex;
+    bottom: 15%;
+    left: 50%;
+    transform: translate(-50%, 15%);
+}
+
+.dlt-btns {
+    margin: 15px;
+    text-align: center;
+    cursor:pointer;
+    text-decoration: none;
+    font-size: 22px;
+    background: transparent;
+    border: none;
+    color: white;
+    border:solid;
+    width: 130px;
+    outline: none;
+    height: 35px;
+    line-height: 35px;
+}
+.dlt-btns:hover {
+    transform: scale(1.075);
+}
+.dlt--btns:active {
+    transform: scale(1);
+}
+
+.close-btn-dlt-acc {
+    position: absolute;
+    top: 5%;
+    cursor: pointer;
+    font-size: 22px;
+    right: 5%;
+}
+.close-btn-dlt-acc:hover {
+    transform:scale(1.3);
+}

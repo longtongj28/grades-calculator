@@ -30,18 +30,15 @@
 }
 .btn-group button {
     margin: 10px;
-    box-shadow: 5px 5px 15px -2px rgba(0,0,0, 0.5);
     font-size: 18px;
     height: 30px;
     width: 85px;
-    border: none;
-    background-color: #8E5572;
+    border: solid;
+    background-color: transparent;
     color: white;
     outline: none;
     cursor: pointer;
 }
 .btn-group button:hover {
     transform: scale(1.1);
-    color: black;
-    background-color: #EED2CC;
 }

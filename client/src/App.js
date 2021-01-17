@@ -1,23 +1,23 @@
 import "./App.css";
 import React, { Component } from "react";
 import Homepage from "./pages/homepage";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import GradesPage from "./pages/gradesPage";
 import axios from "axios";
 
 class App extends Component {
   state = {
     username: "",
+    userID: "",
     password: "",
     loginSuccess: false,
   };
 
+  setUserID = (userID) => {
+    this.setState({
+      userID: userID,
+    });
+  };
   onChangeUsername = (e) => {
     this.setState({
       username: e.target.value,
@@ -29,7 +29,11 @@ class App extends Component {
       username: username,
     });
   };
-
+  setPassword = (password) => {
+    this.setState({
+      password: password,
+    });
+  };
   onChangePassword = (e) => {
     this.setState({
       password: e.target.value,
@@ -57,7 +61,6 @@ class App extends Component {
             <Route
               exact
               path="/"
-              exact
               render={() => (
                 <Homepage
                   username={this.state.username}
@@ -75,10 +78,14 @@ class App extends Component {
               <Route
                 exact
                 path="/grades"
-                exact
                 render={() => (
                   <GradesPage
+                    setPassword={this.setPassword}
+                    userID={this.state.userID}
+                    setUserID={this.setUserID}
+                    password={this.state.password}
                     username={this.state.username}
+                    officialUsername={this.officialUsername}
                     loginSuccess={this.state.loginSuccess}
                     handleLoginSuccess={this.handleLoginSuccess}
                   />

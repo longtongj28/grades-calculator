@@ -11,6 +11,7 @@ class AddAClass extends Component {
   setOpenModal = () => {
     this.setState({
       openModal: !this.state.openModal,
+      courseName: "",
     });
   };
 
@@ -20,7 +21,17 @@ class AddAClass extends Component {
     });
   };
 
-  
+  onSubmitAdd = () => {
+    for (let i = 0; i < this.props.courses.length; i++) {
+      if (this.state.courseName === this.props.courses[i].courseName) {
+        return alert("You already have a course under that name!");
+      }
+    }
+    this.setOpenModal();
+    this.props.addClassToDB(this.state.courseName);
+    this.props.filterDB();
+  };
+
   render() {
     return (
       <>
@@ -37,7 +48,8 @@ class AddAClass extends Component {
             overlay: { backgroundColor: "rgba(0,0,0,0.4)" },
             content: {
               borderRadius: "none",
-              background: "#DDF2EB",
+              border:"none",
+              background: "#0B3954",
               boxShadow: "5px 5px 15px rgba(0,0,0,0.5)",
               top: "30%",
               bottom: "35%",
@@ -46,21 +58,20 @@ class AddAClass extends Component {
             },
           }}
         >
-          <button className="close-button" onClick={this.setOpenModal}>
-            X
-          </button>
-          <p style={{ margin: "5px", fontSize: "25px" }}>Add a Course: </p>
+          <div style={{ color: "white", margin: "5px", fontSize: "25px", textAlign: "center" }}>
+            Add a Course
+          </div>
           <hr />
           <div className="add-class-form">
-            <lablel>Course Name: </lablel>
-            <br />
-            <input onChange={this.onChangeCourseName} />
+            <div>
+              <div style={{color:"white"}}>Course Name<br/></div>
+              <input onChange={this.onChangeCourseName} />
+            </div>
+
             <div className="btn-group">
               <button
                 onClick={() => {
-                  this.setOpenModal();
-                  this.props.addClassToDB(this.state.courseName);
-                  this.props.filterDB();
+                  this.onSubmitAdd();
                 }}
               >
                 Add

@@ -7,7 +7,7 @@
   cursor: pointer;
   background: none;
   outline: none;
-  font-size: 25px;
+  font-size: 30px;
   border: none;
 }
 .center-bar {
@@ -23,20 +23,22 @@
 }
 .center-bar button {
   box-shadow: 5px 5px 15px -2px rgba(0, 0, 0, 0.3);
-  background: #284b63;
+  background: transparent;
   margin: 10px;
   color: white;
-  border: none;
+  border-color: white;
+  border-style: solid;
   height: 30px;
-  width: 200px;
+  width: 180px;
   outline: none;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
 }
 .center-bar button:hover {
   transform: scale(1.1);
-  color: black;
-  background: #d9d9d9;
+}
+.center-bar button:active {
+  transform: scale(1);
 }
 .close-btn:hover {
   transform: scale(1.3);
@@ -76,7 +78,7 @@
     border-radius: 10px;
   position: absolute;
   margin: none;
-  top: 35%;
+  top: 32%;
   left: 2%;
   right: 2%;
   justify-content: center;
@@ -88,17 +90,80 @@
 .category-row {
     margin: 10px;
     border-radius: 5px;
-    height: 35px;
+    height: 40px;
     font-size: 22px;
 }
 
 .category-name {
     position: absolute;
-    top: 10%;
-    left: 2%;
+    width: 200px;
+    text-align: center;
+    top: 15%;
 }
 .percent-worth {
     position: absolute;
-    top: 10%;
-    right: 10%;
+    text-align: center;
+    top: 15%;
+    right: 33%;
+}
+.percent-of-category {
+  position: absolute;
+  top: 15%;
+  text-align:center;
+  right: 10%;
+}
+
+.edit-category-btn {
+  position: absolute;
+  cursor: pointer;
+  background: none;
+  outline: none;
+  color: white;
+  border-style: solid;
+  border-color: white;
+  top: 20%;
+  left: 25%;
+}
+.edit-category-btn:hover {
+  transform: scale(1.1);
+}
+.edit-category-btn:active {
+  transform: scale(1);
+}
+.add-assignment-btn {
+  position: absolute;
+  background: none;
+  outline: none;
+  color: white;
+  border-style: solid;
+  border-color: white;
+  cursor: pointer;
+  top: 20%;
+  left: 37%;
+}
+.add-assignment-btn:hover {
+  transform: scale(1.1);
+}
+.add-assignment-btn:active {
+  transform: scale(1);
+}
+.category-grade-header {
+  position: absolute;
+  top: 10px;
+  right: 7%;
+  font-size: 18px;
+  text-decoration: underline;
+}
+
+.overall-grade {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  border: solid;
+  text-align: center;
+  transform: translate(-50%, -15%);
+  height: 35px;
+  width: 250px;
+  font-size: 20px;
+  line-height: 35px;
 }

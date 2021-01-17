@@ -1,25 +1,18 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Link,
-  Redirect,
-} from "react-router-dom";
 import "./navbar.css";
-import { AiFillGithub, AiFillInfoCircle } from "react-icons/ai";
+import { AiFillGithub } from "react-icons/ai";
+import About from "./navbarButtons/about";
 
 class AppNavbar extends Component {
   render() {
     return (
       <div className="nbar">
-        <p className="siteName">
-          Grades?
-        </p>
+        <p className="siteName">Grades?</p>
         <div className="links">
           <ul>
             <li>
               <a
+                className="nbar-btns"
                 title="Web App's Github Repo"
                 target="_blank"
                 rel="noreferrer"
@@ -29,9 +22,7 @@ class AppNavbar extends Component {
               </a>
             </li>
             <li>
-              <a title="About">
-                <AiFillInfoCircle />
-              </a>
+              <About/>
             </li>
           </ul>
         </div>

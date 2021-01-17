@@ -36,12 +36,16 @@ class ButtonModal extends Component {
   };
 
   componentDidMount = () => {
+    this.loadUsers();
+  };
+
+  loadUsers = () => {
     axios.get("/users").then((res) => {
       const data = res.data;
       this.setState({ allUsers: data });
     });
   };
-
+  
   setIsOpen = () => {
     this.setState({
       isOpen: !this.state.isOpen,
@@ -77,8 +81,7 @@ class ButtonModal extends Component {
       if (this.state.unique === true) {
         console.log("got here 2");
         return true;
-      }
-      else return false;
+      } else return false;
     }
     return false;
   };
@@ -124,14 +127,16 @@ class ButtonModal extends Component {
           return;
         }
       }
-      this.setState({
-        unique: true,
-      }, () => {
-        console.log("unique set to true");
-        this.officialUpdateToParent();
-      });
+      this.setState(
+        {
+          unique: true,
+        },
+        () => {
+          console.log("unique set to true");
+          this.officialUpdateToParent();
+        }
+      );
       this.props.addNewUserDB(newUser);
-      
     }
   };
 

@@ -1,0 +1,38 @@
+.confirm-delete-assignment {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    text-align: center;
+    width: 100%;
+    font-size: 22px;
+    transform: translate(-50%, -30%);
+}
+
+.delete-assignment-btn-group {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translate(-50%, 15%);
+    display: flex;
+}
+
+.delete-assignment-btn-group button {
+    margin: 15px;
+    color: white;
+    background:brown;
+    box-shadow: 5px 5px 15px -2px rgba(0,0,0,0.3);
+    border: none;
+    outline: none;
+    width: 130px;
+    height: 35px;
+    font-size: 20px;
+    cursor:pointer;
+}
+
+.delete-assignment-btn-group button:hover {
+    transform: scale(1.1);
+}
+
+.delete-assignment-btn-group button:active {
+    transform: scale(1);
+}

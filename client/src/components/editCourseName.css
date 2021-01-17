@@ -47,10 +47,3 @@
 .new-course-name input {
     font-size: 25px;
 }
-
-.overall-grade {
-    position: absolute;
-    bottom: 10%;
-    width: 95%;
-    text-align: center;
-}

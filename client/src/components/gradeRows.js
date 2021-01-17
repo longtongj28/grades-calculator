@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./gradeRows.css";
 import AddAClass from "./addAClass";
-import CourseSettings from "./courseSettings";
+import CourseRow from "./courseRow";
+import thinkimg from "../img/thinkingPicture.png";
 
-function shuffle(array) {
+export function shuffle(array) {
   var m = array.length,
     t,
     i;
@@ -25,8 +26,7 @@ function shuffle(array) {
 
 class GradeRows extends Component {
   state = {
-    totalGrade: "A+",
-    courses: [], // [ class1: [ category: [assignments]...  ]]
+    courses: [],
     colorArray: [
       "#001427",
       "#61A0AF",
@@ -134,6 +134,9 @@ class GradeRows extends Component {
             <div>Randomize Colors</div>
           </button>
         </div>
+        {this.state.courses.length === 0 && (
+          <img className="no-course-img" src={thinkimg} alt="thinking...." />
+        )}
         <div className="grade-rows">
           {this.state.courses.map((course, i) => (
             <div
@@ -146,9 +149,7 @@ class GradeRows extends Component {
               }}
               key={i}
             >
-              <div className="course-title">{course.courseName}</div>
-              <div className="total-grade">Grade: {this.state.totalGrade}</div>
-              <CourseSettings
+              <CourseRow
                 courseName={course.courseName}
                 username={this.props.username}
                 courseID={course._id}

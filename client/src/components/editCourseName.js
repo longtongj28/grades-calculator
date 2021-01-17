@@ -12,6 +12,7 @@ class EditCourseName extends Component {
   setModalIsOpen = () => {
     this.setState({
       modalIsOpen: !this.state.modalIsOpen,
+      newCourseName: "",
     });
   };
 
@@ -22,14 +23,18 @@ class EditCourseName extends Component {
   };
 
   onSubmitEditCourseName = () => {
+    if (this.state.newCourseName.length === 0)
+      return alert("Please enter a new course name!");
     const newName = {
+      courseID: this.props.courseID,
       newCourseName: this.state.newCourseName,
     };
     axios
-      .put(`/courses/${this.props.courseID}`, newName)
+      .put("/courses", newName)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
     this.props.filterDB();
+    this.setModalIsOpen();
   };
 
   render() {
@@ -63,7 +68,6 @@ class EditCourseName extends Component {
           <div className="btn-group-edit-course-name">
             <input
               onClick={() => {
-                this.setModalIsOpen();
                 this.onSubmitEditCourseName();
                 this.props.filterDB();
               }}

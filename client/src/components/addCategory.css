@@ -55,7 +55,6 @@
 }
 
 .add-category-modal-btns:hover {
-    border-radius: 10px;
     background: #F6D8AE;
     color: black;
     transform: scale(1.1);

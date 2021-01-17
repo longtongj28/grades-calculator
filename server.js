@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-
+const path = require('path');
 const categories = require("./routes/categories");
 const courses = require("./routes/courses");
 const users = require("./routes/users");
@@ -25,6 +25,15 @@ app.use("/categories", categories);
 app.use("/courses", courses);
 app.use("/users", users);
 app.use("/assignments", assignments);
+
+if (process.env.NODE_ENV === 'production') {
+  //set static folder
+  app.use(express.static('client/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  })
+}
 
 const port = process.env.PORT || 5000;
 
